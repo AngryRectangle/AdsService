@@ -63,3 +63,39 @@
 которую он когда-либо запускал.
 
 Доменные сущности:
+```
+{
+  "User": {
+    "Id": ["guid", "not null", "length<30", "unique"],
+    "Mail": ["string", "length<30"],
+    "Name": ["string", "length<30"],
+    "Balance": ["decimal", "balance>0"]
+  },
+  "Post": {
+    "Id": ["guid", "not null", "length<30", "unique"],
+    "UserId": ["guid", "not null", "length<30", "unique"],
+    "Content": ["string", "length<500"],
+    "ModerationStatus": ["string"]
+  },
+  "Moderator": {
+    "Id": ["guid", "not null", "length<30", "unique"],
+    "Mail": ["string", "length<30"],
+    "Password": ["string", "length<30"]
+  }
+  "AdCampaign": {
+    "Id": ["guid", "not null", "length<30", "unique"],
+    "PostId": ["guid", "not null", "length<30", "unique"],
+    "UserId": ["guid", "not null", "length<30", "unique"],
+    "Cost": ["decimal", "balance>0"],
+    "Duration": ["timespan"],
+    "IsActive": ["bool"]
+  },
+  "Check": {
+    "Id": ["guid", "not null", "length<30", "unique"],
+    "ModeratorId": ["guid", "not null", "length<30", "unique"],
+    "PostId": ["guid", "not null", "length<30", "unique"],
+    "Result": ["bool"],
+    "Reason": ["string", "length<100"]
+  }
+}
+```
