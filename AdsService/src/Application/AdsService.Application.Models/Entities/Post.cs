@@ -2,13 +2,13 @@ namespace AdsService.Application.Models.Entities;
 
 using AdsService.Application.Models.ValueObjects;
 
-public class Post(User user, PostContent content)
+public class Post
 {
     public Guid Id { get; } = Guid.NewGuid();
 
-    public Guid UserId { get; } = user.Id;
-
-    public PostContent Content { get; } = content;
+    public User User { get; }
+    
+    public PostContent Content { get; }
 
     public PostStatus ModerationStatus =>
         Check is null ? PostStatus.Moderation : (Check.Result ? PostStatus.Approved : PostStatus.Rejected);
