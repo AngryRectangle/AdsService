@@ -1,11 +1,13 @@
 namespace AdsService.Application.Models.ValueObjects;
 
+using AdsService.Application.Models.Entities;
+
 public readonly struct Reason 
 {
-    public decimal Result { get; }
+    public CheckResult Result { get; }
     public string Comment { get; }
     
-    public Reason(decimal result, string comment)
+    public Reason(CheckResult result, string comment)
     {
         Result = result;
         if (result == CheckResult.Approved && !string.IsNullOrEmpty(comment)) 
@@ -18,10 +20,4 @@ public readonly struct Reason
         else
             Comment = comment;
     }
-}
-
-public enum CheckResult
-{
-    Approved,
-    Rejected
 }
