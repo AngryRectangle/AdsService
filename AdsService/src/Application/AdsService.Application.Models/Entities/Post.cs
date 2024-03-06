@@ -10,6 +10,12 @@ public class Post
     
     public PostContent Content { get; }
 
+    public Post(User user, PostContent content)
+    {
+        User = user ?? throw new ArgumentNullException(nameof(user));
+        Content = content ?? throw new ArgumentNullException(nameof(content));
+    }
+
     public PostStatus ModerationStatus =>
         Check is null ? PostStatus.Moderation : (Check.Result ? PostStatus.Approved : PostStatus.Rejected);
 
