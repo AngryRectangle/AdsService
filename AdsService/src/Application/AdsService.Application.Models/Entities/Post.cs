@@ -1,53 +1,54 @@
-namespace AdsService.Application.Models.Entities;
-
 using AdsService.Application.Models.ValueObjects;
 
-public class Post
+namespace AdsService.Application.Models.Entities
 {
-    public Guid Id { get; } = Guid.NewGuid();
-
-    public User User { get; }
-    
-    public PostContent Content { get; }
-
-    public Post(User user, PostContent content)
+    public class Post
     {
-        User = user ?? throw new ArgumentNullException(nameof(user));
-        Content = content ?? throw new ArgumentNullException(nameof(content));
-    }
+        public Guid Id { get; } = Guid.NewGuid();
 
-    public PostStatus ModerationStatus =>
-        Check is null ? PostStatus.Moderation : (Check.Result ? PostStatus.Approved : PostStatus.Rejected);
+        public User User { get; }
 
-    private Check? Check { get; set; }
+        public PostContent Content { get; }
 
-    public void Approve(Moderator moderator)
-    {
-        ThrowIfNotOnModeration();
-        Check = Check.ApproveCheck(this, moderator);
-    }
+        public PostStatus ModerationStatus =>
+            Check is null ? PostStatus.Moderation : (Check.Result ? PostStatus.Approved : PostStatus.Rejected);
 
-    public void Reject(Moderator moderator, Reason reason)
-    {
-        ThrowIfNotOnModeration();
-        Check = Check.RejectCheck(this, moderator, reason);
-    }
+        private Check? Check { get; set; }
 
-    public bool TryGetRejectReason(out Reason reason)
-    {
-        if (ModerationStatus != PostStatus.Rejected)
+        public Post(User user, PostContent content)
         {
-            reason = default;
-            return false;
+            User = user ?? throw new ArgumentNullException(nameof(user));
+            Content = content ?? throw new ArgumentNullException(nameof(content));
         }
 
-        reason = Check!.Reason;
-        return true;
-    }
+        public void Approve(Moderator moderator)
+        {
+            ThrowIfNotOnModeration();
+            Check = Check.ApproveCheck(this, moderator);
+        }
 
-    private void ThrowIfNotOnModeration()
-    {
-        if (ModerationStatus != PostStatus.Moderation)
-            throw new InvalidOperationException("Post is not on moderation.");
+        public void Reject(Moderator moderator, Reason reason)
+        {
+            ThrowIfNotOnModeration();
+            Check = Check.RejectCheck(this, moderator, reason);
+        }
+
+        public bool TryGetRejectReason(out Reason reason)
+        {
+            if (ModerationStatus != PostStatus.Rejected)
+            {
+                reason = default;
+                return false;
+            }
+
+            reason = Check!.Reason;
+            return true;
+        }
+
+        private void ThrowIfNotOnModeration()
+        {
+            if (ModerationStatus != PostStatus.Moderation)
+                throw new InvalidOperationException("Post is not on moderation.");
+        }
     }
 }
