@@ -1,18 +1,27 @@
 namespace AdsService.Application.Models.ValueObjects;
 
-public readonly struct Reason
+public readonly struct Reason 
 {
-    public string Value { get; }
-
-    public Reason(string value)
+    public decimal Result { get; }
+    public string Comment { get; }
+    
+    public Reason(decimal result, string comment)
     {
-        Value = value;
-        if (value.Length > 100)
-            throw new ArgumentException("Reason length can't exceed 100 symbols.", nameof(value));
-    }
+        Result = result;
+        if (result == CheckResult.Approved && !string.IsNullOrEmpty(comment)) 
+            throw new ArgumentException("Result error.");
 
-    public Reason()
-    {
-        Value = "Empty reason";
+        if (string.IsNullOrEmpty(comment))
+            Comment = string.Empty;
+        else if (comment.Length > 100)
+            throw new ArgumentException("Comment length should be less than or equal to 100 characters.");
+        else
+            Comment = comment;
     }
+}
+
+public enum CheckResult
+{
+    Approved,
+    Rejected
 }
