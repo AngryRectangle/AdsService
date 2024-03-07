@@ -16,17 +16,13 @@ public class Post
         {
             throw new ArgumentNullException(nameof(user));
         }
-        if (content == null)
-        {
-            throw new ArgumentNullException(nameof(content));
-        }
-
         User = user;
         Content = content;
     }
 
     public PostStatus ModerationStatus =>
-        Check is null ? PostStatus.Moderation : (Check.Result ? PostStatus.Approved : PostStatus.Rejected);
+        Check is null ? PostStatus.Moderation : (Check.Result == CheckResult.Approved ? PostStatus.Approved : PostStatus.Rejected);
+
 
     private Check? Check { get; set; }
 
