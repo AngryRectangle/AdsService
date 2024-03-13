@@ -1,11 +1,16 @@
 name: .NET
 
 on:
-  pull_request:
+  push:
     branches:
-      - lab-*
+      - 'feature/**'
+  pull_request:
+    types: [opened]
+    branches:
+      - lab-2
     paths:
       - 'feature/**'
+
 
 jobs:
   build:
