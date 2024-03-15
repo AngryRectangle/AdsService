@@ -4,7 +4,6 @@
     <EnablePackageVersionOverride>false</EnablePackageVersionOverride>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="Itmo.Dev.Editorconfig" Version="1.0.2" />
     <PackageVersion Include="Itmo.Dev.Platform.Logging" Version="1.0.89" />
     <PackageVersion Include="Itmo.Dev.Platform.Postgres" Version="1.1.89" />
     <PackageVersion Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="7.0.15" />
