@@ -10,6 +10,7 @@
         <PackageReference Include="Itmo.Dev.Platform.Logging"/>
         <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" />
         <PackageReference Include="Swashbuckle.AspNetCore" />
+        <PackageReference Remove="Itmo.Dev.Editorconfig" />
     </ItemGroup>
 
     <ItemGroup>

@@ -6,6 +6,7 @@
 
     <ItemGroup>
         <PackageReference Include="SourceKit.Generators.Builder"/>
+        <PackageReference Remove="Itmo.Dev.Editorconfig" />
     </ItemGroup>
 
 </Project>
