@@ -11,3 +11,13 @@ services:
       - POSTGRES_DB=adservice
     image: postgres:15.5-alpine3.18
     command: postgres -c port=6666
+
+  adsservice:
+    container_name: adsservice
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "666:666"
+    command: postgres -c port=666
+    
