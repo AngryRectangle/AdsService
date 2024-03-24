@@ -2,6 +2,9 @@ namespace AdsService.Application.Models.ValueObjects;
 
 public readonly struct PasswordHash
 {
+    public const int HashSize = 64;
+    public const int HashHexSize = HashSize * 2;
+    
     public string Password { get; }
 
     public PasswordHash(string password)
