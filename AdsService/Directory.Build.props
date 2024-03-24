@@ -11,7 +11,7 @@
         <AnalysisLevel>latest</AnalysisLevel>
         <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-        <NoWarn>1591;SA1633;SA1101;SA1503;SA1309;SA1601;SA1201;SA1502;SA1127;SA1128;SA1600;SA1611;SA1604;SA1629;SA1602;</NoWarn>
+        <NoWarn>1591;SA1633;SA1101;SA1503;SA1309;SA1601;SA1201;SA1502;SA1127;SA1128;SA1600;SA1611;SA1604;SA1629;SA1602;SA1200;SA1028;SA1135;SA1210;IDE0065;SA1642;SA1413;IDE0161;IDE0005;</NoWarn>
     </PropertyGroup>
 
     <ItemGroup>
