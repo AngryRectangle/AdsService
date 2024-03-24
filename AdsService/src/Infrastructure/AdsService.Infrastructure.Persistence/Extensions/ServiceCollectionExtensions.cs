@@ -1,24 +1,16 @@
-namespace AdsService.Infrastructure.Persistence.Extensions;
-
-using AdsService.Application.Abstractions.Persistence;
-using AdsService.Infrastructure.Persistence.Migrations;
-using AdsService.Infrastructure.Persistence.Plugins;
-using Itmo.Dev.Platform.Postgres.Extensions;
-using Itmo.Dev.Platform.Postgres.Plugins;
+using AdsService.Infrastructure.Persistence.Contexts;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+
+namespace AdsService.Infrastructure.Persistence.Extensions;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddInfrastructurePersistence(this IServiceCollection collection)
+    public static IServiceCollection AddInfrastructurePersistence(this IServiceCollection collection, IConfiguration configuration)
     {
-        collection.AddPlatformPostgres(builder => builder.BindConfiguration("Infrastructure:Persistence:Postgres"));
-        collection.AddSingleton<IDataSourcePlugin, MappingPlugin>();
-
-        collection.AddPlatformMigrations(typeof(IAssemblyMarker).Assembly);
-        collection.AddHostedService<MigrationRunnerService>();
-
-        // TODO: add repositories
-        collection.AddScoped<IPersistenceContext, PersistenceContext>();
+        collection.AddDbContext<AppDbContext>(options =>
+            options.UseNpgsql(configuration.GetSection("Infrastructure:Persistence:Postgres:ConnectionString").Value));
 
         return collection;
     }
