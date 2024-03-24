@@ -29,6 +29,15 @@ public class Check
         Reason = reason;
     }
 
+    /// <summary>
+    /// Конструктор для EF Core
+    /// </summary>
+    private Check()
+    {
+        Post = null!;
+        Moderator = null!;
+    }
+
     public static Check ApproveCheck(Post post, Moderator moderator)
     {
         return new Check(post, moderator, CheckResult.Approved, default);

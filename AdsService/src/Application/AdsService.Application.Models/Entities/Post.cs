@@ -10,21 +10,26 @@ public class Post
 
     public PostContent Content { get; }
 
+    public PostStatus ModerationStatus =>
+        Check is null
+            ? PostStatus.Moderation
+            : (Check.Result == CheckResult.Approved ? PostStatus.Approved : PostStatus.Rejected);
+
+    private Check? Check { get; set; }
+    
     public Post(User user, PostContent content)
     {
-        if (user == null)
-        {
-            throw new ArgumentNullException(nameof(user));
-        }
-
-        User = user;
+        User = user ?? throw new ArgumentNullException(nameof(user));
         Content = content;
     }
 
-    public PostStatus ModerationStatus =>
-        Check is null ? PostStatus.Moderation : (Check.Result == CheckResult.Approved ? PostStatus.Approved : PostStatus.Rejected);
-
-    private Check? Check { get; set; }
+    /// <summary>
+    /// Конструктор для EF Core
+    /// </summary>
+    private Post()
+    {
+        User = null!;
+    }
 
     public bool TryGetRejectReason(out Reason reason)
     {
