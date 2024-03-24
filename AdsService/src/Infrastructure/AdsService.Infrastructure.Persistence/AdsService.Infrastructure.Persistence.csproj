@@ -1,10 +1,19 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+      <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+      <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    </PropertyGroup>
+
     <ItemGroup>
         <ProjectReference Include="..\..\Application\AdsService.Application.Abstractions\AdsService.Application.Abstractions.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="EFCore.NamingConventions" />
         <PackageReference Include="Itmo.Dev.Platform.Postgres"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Tools">
