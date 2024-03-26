@@ -19,5 +19,4 @@ services:
       dockerfile: Dockerfile
     ports:
       - "666:666"
-    command: postgres -c port=666
     
