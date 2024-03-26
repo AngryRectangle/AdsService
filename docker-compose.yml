@@ -1,0 +1,22 @@
+version: "3.5"
+
+services:
+  adsservice_db:
+    container_name: adsservice_postgres
+    ports:
+      - "6666:6666"
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=adservice
+    image: postgres:15.5-alpine3.18
+    command: postgres -c port=6666
+
+  adsservice:
+    container_name: adsservice
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "666:666"
+    
